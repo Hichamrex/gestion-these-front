@@ -16,6 +16,7 @@ import * as yup from "yup";
 import { theme } from "../theme/theme";
 import "./styles.css";
 import styled from "@emotion/styled";
+import axios from "axios";
 
 export const LoginWebAdapter = () => {
   const navigate = useNavigate();
@@ -25,12 +26,44 @@ export const LoginWebAdapter = () => {
 
   const handleSubmit = async (values: any) => {
     setShowLoading(true);
+    // if(loginFormik?.values?.email === "admin@gmail.com" && loginFormik?.values?.password === "12345678") {
+    //   navigate("/users");
+    //   setShowLoading(false);
+    //   sessionStorage.setItem("roles", "admin");
+    //   return;
+    // }
     try {
-      if (values?.email === "test@gmail.com" && values?.password === "test") {
-        navigate("/theses");
-        setShowLoading(false);
-        sessionStorage.setItem("roles", "research_agent");
+      axios.post("http://localhost:8000/api/login", {
+        email: loginFormik?.values?.email,
+        password: loginFormik?.values?.password
+      })
+      .then((response: any) => {
+        // Handle successful login response
+       console.log("Data " + JSON.stringify(response?.data?.data));
+        if (response?.data?.data?.role === "Agent de service recherche") {
+            navigate("/theses");
+            setShowLoading(false);
+            sessionStorage.setItem("roles", "research_agent");
+          } else if(response?.data?.data?.role === "Super Admin") {
+            navigate("/users");
+            setShowLoading(false);
+            sessionStorage.setItem("roles", "admin");
+        }
+        else if(response?.data?.data?.role === "Agent de bibliotheque") {
+          navigate("/theses");
+          setShowLoading(false);
+          sessionStorage.setItem("roles", "agent_bibliotheque");
       }
+      
+      sessionStorage.setItem("full_name", `${response?.data?.data?.first_name} ${response?.data?.data?.last_name}`);
+      sessionStorage.setItem("status", `${response?.data?.data?.role}`);
+      })
+      .catch((error: any) => {
+        loginFormik?.setFieldError("email", "L'email ou le mot de passe est incorrect");
+        loginFormik?.setFieldError("password", "L'email ou le mot de passe est incorrect");
+        setShowLoading(false);
+    });
+      
     } catch (error) {
       console.error("Error in Login " + error);
     }
@@ -119,9 +152,9 @@ export const LoginWebAdapter = () => {
               mt="xl"
               type="submit"
               style={{
-                borderRadius: "40px",
+                // borderRadius: "40px",
                 backgroundColor: `${theme.mainColor}`,
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               }}
             >
               Se connecter

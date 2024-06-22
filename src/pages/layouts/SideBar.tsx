@@ -7,7 +7,14 @@ import {
   Button,
 } from "@mantine/core";
 import {
+  IconBuildingArch,
+  IconBuildingSkyscraper,
   IconFolder,
+  IconMicroscope,
+  IconPlaneDeparture,
+  IconUser,
+  IconUserSearch,
+  IconUsers,
 } from "@tabler/icons-react";
 import { Box } from "@mui/material";
 import { theme } from "../../theme/theme";
@@ -70,7 +77,11 @@ function NavbarLink({
 }
 
 const mockdata = [
-  { icon: IconFolder, label: "Theses", path: "/theses", role: ["Agent de recherche"] },
+  { icon: IconFolder, label: "Theses", path: "/theses", role: ["Agent de recherche", "Agent de bibliotheque"] },
+  { icon: IconUsers , label: "Users", path: "/users", role: ["Super Admin"] },
+  // { icon: IconUserSearch, label: "Agent Recherche", path: "/agent-recherches", role: ["Super Admin"] },
+  { icon: IconBuildingSkyscraper, label: "Departements", path: "/departements", role: ["Super Admin"] },
+  { icon: IconMicroscope, label: "Laboratoires", path: "/laboratoires", role: ["Super Admin"] },
 ];
 
 interface SideBarProps {

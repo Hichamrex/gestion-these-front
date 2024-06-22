@@ -1,0 +1,76 @@
+.custom-modal .mantine-modal-inner {
+    max-width: 500px; /* Set the desired maximum width */
+    width: 90%; /* Set the desired width */
+  }
+
+  /* Hide the default file input */
+#files {
+  display: none;
+}
+
+/* Style the custom upload button */
+.upload-button {
+  display: inline-block;
+  padding: 7.1px 10px;
+  background-color: #228be6;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  /* margin-left: 600px; */
+}
+
+.upload-button:hover {
+  background-color: #228be6;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.file-table th,
+.file-table td {
+  padding: 8px;
+}
+
+.file-table th {
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.file-table td {
+  border-bottom: 1px solid #eee;
+}
+
+.file-table button {
+  border: none;
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: none;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.download-button:hover {
+  background-color: #e0e0e0;
+}
+
+.button {
+  &:disabled,
+  &[data-disabled] {
+    border-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    background-color: transparent;
+  }
+}

@@ -21,8 +21,7 @@ import {
   Button,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-// import ChangePasswordWebAdapter from "../../feat-changePassword/ChangePasswordWebAdapter";
-import { format, parseISO } from "date-fns";
+import { mappRole } from "../../utils/customFunctions";
 
 interface UserButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   name: any;
@@ -79,7 +78,6 @@ export const Header = ({
   const navigate = useNavigate();
   const [openProfile, setOpenProfile] = useState(false);
   const [openChangePassword, setOpenChangePassword] = useState(false);
-  const [openAddCollaborator, setOpenAddCollaborator] = useState(false);
 
   const header = (
     <>
@@ -137,8 +135,8 @@ export const Header = ({
               <Menu offset={0}>
                 <Menu.Target>
                   <UserButton
-                    name={`Ichraq AMINE`}
-                    status={`Agent de recherche`}
+                    name={sessionStorage.getItem("full_name" || "")}
+                    status={sessionStorage.getItem("status" || "")}
                   />
                 </Menu.Target>
                 <Menu.Dropdown>
@@ -160,7 +158,7 @@ export const Header = ({
                   <Menu.Divider />
                   <Menu.Item
                     onClick={() => {
-                      navigate("/");
+                      navigate("/login");
                     }}
                   >
                     Déconnexion
@@ -181,7 +179,15 @@ export const Header = ({
               justifyContent: "end",
             }}
           >
-            {<Button onClick={() => navigate("/login")}>Se connecter</Button>}
+            {<Button onClick={() => {
+              navigate("/login")
+              sessionStorage.clear();
+              }}
+              sx={{
+                borderRadius: "20px",
+                backgroundColor: "#0A4A7A"
+              }}
+              >Se connecter</Button>}
           </div>
         )}
       </div>
